@@ -30,4 +30,4 @@ printf %s "server {
 								    }
 }" > /etc/nginx/sites-available/default
 
-sudo service reload nginx
+sudo service nginx restart
