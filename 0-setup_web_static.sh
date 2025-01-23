@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
-# set up servers for deployment
-sudo apt-get update
-sudo apt-get install nginx -y
-mkdir /data/
-mkdir -p /data/web_static/
-mkdir -p /data/web_static/releases/
-mkdir -p /data/web_static/shared/
+# Sets up a web server for deployment of web_static.
+
+apt-get update
+apt-get install -y nginx
+
 mkdir -p /data/web_static/releases/test/
-echo "<h2>test nginx configuration</h2>" > /data/web_static/releases/test/index.html
-ln -s /data/webstatic/releases/test/ /data/web_static/current
-chown -R ubuntu:ubuntu /data/
+mkdir -p /data/web_static/shared/
+echo "Holberton School" > /data/web_static/releases/test/index.html
+ln -sf /data/web_static/releases/test/ /data/web_static/current
+
+chown -R ubuntu /data/
+chgrp -R ubuntu /data/
+
 printf %s "server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -32,4 +34,5 @@ printf %s "server {
       internal;
     }
 }" > /etc/nginx/sites-available/default
-sudo service nginx restart
+
+service nginx restart
