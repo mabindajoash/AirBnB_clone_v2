@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#distribute archives to web servers
+# Fabfile to create and distribute an archive to a web server.
 import os.path
 from datetime import datetime
 from fabric.api import env
@@ -65,11 +65,11 @@ def do_deploy(archive_path):
            format(name)).failed is True:
         return False
     return True
+
+
 def deploy():
-    """distribute archives"""
-    pack = do_pack()
-    if !pack:
+    """Create and distribute an archive to a web server."""
+    file = do_pack()
+    if file is None:
         return False
-    else:
-        is_true = do_deploy(pack)
-        return is_true
+    return do_deploy(file)
